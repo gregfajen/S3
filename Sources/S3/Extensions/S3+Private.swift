@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FoundationNetworking
 import Vapor
 import HTTP
 
