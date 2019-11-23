@@ -23,7 +23,7 @@ public extension S3 {
 //        let url = URL(string: "https://s3.eu-west-2.amazonaws.com/s3-liveui-test/file-hu.txt")!
         
         var awsHeaders: [String: String] = headers
-        awsHeaders["content-type"] = file.mime.description
+        awsHeaders["Content-Type"] = file.mime.description
         awsHeaders["x-amz-acl"] = file.access.rawValue
         let headers = try signer.headers(for: .PUT, urlString: url.absoluteString, headers: awsHeaders, payload: Payload.bytes(file.data))
         
