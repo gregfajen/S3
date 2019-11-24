@@ -66,14 +66,14 @@ extension S3Signer {
         var updatedHeaders = update(headers: headers, url: url, longDate: dates.long, bodyDigest: bodyDigest, region: region)
         
         if httpMethod == .PUT && payload.isBytes {
-            updatedHeaders["content-md5"] = try MD5.hash(payload.bytes).base64EncodedString()
+            updatedHeaders["Content-MD5"] = try MD5.hash(payload.bytes).base64EncodedString()
         }
         
         if httpMethod == .PUT || httpMethod == .DELETE {
-            updatedHeaders["content-length"] = payload.size()
-            if httpMethod == .PUT && url.pathExtension != "" {
-                updatedHeaders["content-type"] = (MediaType.fileExtension(url.pathExtension) ?? .plainText).description
-            }
+            updatedHeaders["Content-Length"] = payload.size()
+//            if httpMethod == .PUT && url.pathExtension != "" {
+//                updatedHeaders["content-type"] = (MediaType.fileExtension(url.pathExtension) ?? .plainText).description
+//            }
         }
         
         updatedHeaders["authorization"] = try generateAuthHeader(httpMethod, url: url, headers: updatedHeaders, bodyDigest: bodyDigest, dates: dates, region: region)
